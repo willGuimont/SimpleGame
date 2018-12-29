@@ -3,7 +3,6 @@ package io.github.williamguimont.game.gamestate.configuration;
 import java.util.Scanner;
 
 import io.github.williamguimont.game.Game.GameConfig;
-import io.github.williamguimont.game.gamestate.BaseGameState;
 import io.github.williamguimont.game.gamestate.configuration.Local;
 import io.github.williamguimont.game.gamestate.configuration.Network;
 import io.github.williamguimont.game.gamestate.configuration.Solo;
