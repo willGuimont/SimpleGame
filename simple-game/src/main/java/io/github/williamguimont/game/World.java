@@ -1,16 +1,21 @@
 package io.github.williamguimont.game;
 
 import io.github.williamguimont.game.characters.Character;
+import io.github.williamguimont.game.characters.Character.FacingDirection;
 
 public class World {
 
     private final Character[] field;
     private final int size;
 
-
     public World(int size) {
         field = new Character[size];
         this.size = size;
+    }
+
+    public void addCharacter(Character c, int position, FacingDirection facingDirection) {
+        c.setInWorld(this, position, facingDirection);
+        field[position] = c;
     }
 
     public void move(int from, int to) {

@@ -1,23 +1,15 @@
 package io.github.williamguimont.game;
 
 import io.github.williamguimont.game.gamestate.configuration.MainMenu;
+import io.github.williamguimont.game.player.Player;
 import io.github.williamguimont.utils.StateMachine;
 
 public class Game {
 
-    // TODO
-    public class GameConfig {
-        private Character player1;
-        private Character player2;
-        private boolean isFinished;
-
-        public boolean isFinished() {
-            return isFinished;
-        }
-    }
-
     private StateMachine stateMachine;
     private World world;
+    private Player player1;
+    private Player player2;
     private boolean isSetup;
 
     public Game() {
@@ -25,31 +17,44 @@ public class Game {
         isSetup = false;
     }
 
-    public void config() {
-        GameConfig config = new GameConfig();
-        stateMachine = new StateMachine(new MainMenu(config));
+    public void run() {
+        config();
+        if (isSetup)
+            play();
+    }
+
+    private void config() {
+        stateMachine = new StateMachine(new MainMenu(this));
         while (stateMachine.hasState()) {
             stateMachine.execute();
             stateMachine.transition();
         }
-
-        if (config.isFinished()) {
-            // Okay to start
-            // TODO setup the game
-        }
     }
 
-    public void play() {
-        if (isSetup) {
-            // TODO game state machine
-            // stateMachine = new StateMachine(new MainMenu());
-            // while (stateMachine.hasState()) {
-            // stateMachine.execute();
-            // stateMachine.transition();
-            // }
-        } else {
-            // TODO throw error
-        }
+    private void play() {
+        System.out.println("Config finished !");
+        // TODO game state machine
+        // stateMachine = new StateMachine(new MainMenu());
+        // while (stateMachine.hasState()) {
+        // stateMachine.execute();
+        // stateMachine.transition();
+        // }
+    }
+
+    public void setWorld(World world) {
+        this.world = world;
+    }
+
+    public void setPlayer1(Player player) {
+        player1 = player;
+    }
+
+    public void setPlayer2(Player player) {
+        player2 = player;
+    }
+
+    public void finishSetup() {
+        isSetup = true;
     }
 
 }

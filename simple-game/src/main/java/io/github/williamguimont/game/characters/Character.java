@@ -23,18 +23,23 @@ public class Character {
     private final int maxHealth;
     private int strenght;
     private int position;
-    private final FacingDirection facingDirection;
-    private final World world;
+    private FacingDirection facingDirection;
+    private World world;
 
-    public Character(String name, int health, int maxHealth, int strenght, int position,
-            FacingDirection facingDirection, World world) {
+    public Character(String name, int health, int maxHealth, int strenght) {
         this.name = name;
-        this.health = health;
+        this.health = health > maxHealth ? maxHealth : health;
         this.maxHealth = maxHealth;
         this.strenght = strenght;
+        this.position = 0;
+        this.facingDirection = FacingDirection.Left;
+        this.world = null;
+    }
+
+    public void setInWorld(World world, int position, FacingDirection facingDirection) {
+        this.world = world;
         this.position = position;
         this.facingDirection = facingDirection;
-        this.world = world;
     }
 
     private void move(int movement) {

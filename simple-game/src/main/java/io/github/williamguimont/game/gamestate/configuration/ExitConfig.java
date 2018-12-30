@@ -1,16 +1,17 @@
 package io.github.williamguimont.game.gamestate.configuration;
 
-import io.github.williamguimont.game.Game.GameConfig;
+import io.github.williamguimont.game.Game;
+import io.github.williamguimont.game.gamestate.BaseGameState;
 
-public class ExitConfig extends BaseConfigState {
+public class ExitConfig extends BaseGameState {
 
-    public ExitConfig(GameConfig config)
-    {
-        super(config);
+    public ExitConfig(Game game) {
+        super(game);
     }
 
     @Override
     public void execute() {
-        // TODO exit config
+        getGame().finishSetup();
+        setNextState(null); // exit
     }
 }

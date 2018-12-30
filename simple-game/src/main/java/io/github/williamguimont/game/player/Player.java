@@ -1,5 +1,10 @@
 package io.github.williamguimont.game.player;
 
-public interface Player {
+import io.github.williamguimont.game.characters.Character;
+
+public class Player {
     // TODO player
+    public Player(Character c) {
+
+    }
 }

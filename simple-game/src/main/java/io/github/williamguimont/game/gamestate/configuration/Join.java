@@ -1,15 +1,17 @@
 package io.github.williamguimont.game.gamestate.configuration;
 
-import io.github.williamguimont.game.Game.GameConfig;
+import io.github.williamguimont.game.Game;
+import io.github.williamguimont.game.gamestate.BaseGameState;
 
-public class Join extends BaseConfigState {
+public class Join extends BaseGameState {
 
-    public Join(GameConfig config) {
-        super(config);
+    public Join(Game game) {
+        super(game);
     }
 
     @Override
     public void execute() {
         // TODO join
+        System.out.println("Join");
     }
 }
