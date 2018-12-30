@@ -14,10 +14,7 @@ public class WorldChoser extends BaseGameState {
 
     @Override
     public void execute() {
-        // TODO grassland
-        // street
-        // mountain
-        // etc
+        // TODO grassland, street, mountain, etc
         System.out.println("Enter the size of the world");
         System.out.println("(15 is recommended)");
         Scanner scanner = new Scanner(System.in);

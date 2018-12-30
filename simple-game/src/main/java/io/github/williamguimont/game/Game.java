@@ -1,23 +1,30 @@
 package io.github.williamguimont.game;
 
+import org.fusesource.jansi.AnsiConsole;
+
+import io.github.williamguimont.game.characters.Character.FacingDirection;
+import io.github.williamguimont.game.gamestate.ShowGame;
 import io.github.williamguimont.game.gamestate.configuration.MainMenu;
 import io.github.williamguimont.game.player.Player;
 import io.github.williamguimont.utils.StateMachine;
 
 public class Game {
-
+    // TODO add color everywhere
     private StateMachine stateMachine;
     private World world;
     private Player player1;
     private Player player2;
     private boolean isSetup;
+    private boolean isPlayer1Turn;
 
     public Game() {
         world = new World(10);
         isSetup = false;
+        isPlayer1Turn = true;
     }
 
     public void run() {
+        AnsiConsole.systemInstall();
         config();
         if (isSetup)
             play();
@@ -32,25 +39,61 @@ public class Game {
     }
 
     private void play() {
-        System.out.println("Config finished !");
-        // TODO game state machine
-        // stateMachine = new StateMachine(new MainMenu());
-        // while (stateMachine.hasState()) {
-        // stateMachine.execute();
-        // stateMachine.transition();
-        // }
+        stateMachine = new StateMachine(new ShowGame(this));
+        while (stateMachine.hasState()) {
+            stateMachine.execute();
+            stateMachine.transition();
+        }
+    }
+
+    public boolean isOnePlayerDead() {
+        return player1.getCharacter().isDead() || player2.getCharacter().isDead();
+    }
+
+    public Player getWinningPlayer() {
+        if (isOnePlayerDead()) {
+            if (player1.getCharacter().isDead()) {
+                return player1;
+            } else {
+                return player2;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    public void changeTurn() {
+        isPlayer1Turn = !isPlayer1Turn;
+    }
+
+    public Player getCurrentPlayer() {
+        return isPlayer1Turn ? player1 : player2;
     }
 
     public void setWorld(World world) {
         this.world = world;
+        player1.setWorld(world, 0, FacingDirection.Left);
+        player2.setWorld(world, world.getSize() - 1, FacingDirection.Right);
+    }
+
+    public World getWorld() {
+        return world;
     }
 
     public void setPlayer1(Player player) {
         player1 = player;
     }
 
+    public Player getPlayer1() {
+        return player1;
+    }
+
     public void setPlayer2(Player player) {
         player2 = player;
+    }
+
+    public Player getPlayer2() {
+        return player2;
     }
 
     public void finishSetup() {

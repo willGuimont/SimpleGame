@@ -1,5 +1,7 @@
 package io.github.williamguimont.game.gamestate.configuration;
 
+import static org.fusesource.jansi.Ansi.*;
+import static org.fusesource.jansi.Ansi.Color.*;
 import java.util.Scanner;
 
 import io.github.williamguimont.game.Game;
@@ -17,6 +19,7 @@ public class MainMenu extends BaseGameState {
 
     @Override
     public void execute() {
+        System.out.print(ansi().fg(CYAN));
         System.out.println("  _____ _                 _         _____                      \n"
                 + " / ____(_)               | |       / ____|                     \n"
                 + "| (___  _ _ __ ___  _ __ | | ___  | |  __  __ _ _ __ ___   ___ \n"
@@ -25,6 +28,7 @@ public class MainMenu extends BaseGameState {
                 + "|_____/|_|_| |_| |_| .__/|_|\\___|  \\_____|\\__,_|_| |_| |_|\\___|\n"
                 + "                   | |                                         \n"
                 + "                   |_|                                         \n");
+        System.out.print(ansi().reset());
         System.out.println("Welcome to this simple game");
         System.out.println("Please select the mode you want to play");
 

@@ -30,7 +30,7 @@ public class CharacterChoser {
 
     public static Character randomCharacter() {
         Random rand = new Random();
-        return intToCharacter(rand.nextInt(4), "CPU");
+        return intToCharacter(rand.nextInt(3) + 1, "CPU");
     }
 
     private static boolean isChoiceValid(int c) {

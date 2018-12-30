@@ -23,7 +23,7 @@ public class World {
             field[to] = field[from];
             field[from] = null;
         } else {
-            // TODO to do ?
+            // TODO error ?
         }
     }
 
@@ -37,5 +37,9 @@ public class World {
         if (position < 0 || position >= size)
             return null;
         return field[position];
+    }
+
+    public int getSize() {
+        return size;
     }
 }

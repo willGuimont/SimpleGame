@@ -74,6 +74,10 @@ public class Character {
         return health;
     }
 
+    public boolean isDead() {
+        return health == 0;
+    }
+
     private void addHealth(int change) {
         health += change;
         if (health < 0)

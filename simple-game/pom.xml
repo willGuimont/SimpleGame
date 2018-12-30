@@ -25,6 +25,12 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.fusesource.jansi</groupId>
+      <artifactId>jansi</artifactId>
+      <version>1.17</version>
+      <scope>src</scope>
+    </dependency>
   </dependencies>
 
   <build>

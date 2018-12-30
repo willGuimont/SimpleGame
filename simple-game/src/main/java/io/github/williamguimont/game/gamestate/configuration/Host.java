@@ -12,7 +12,7 @@ public class Host extends BaseGameState {
 
     @Override
     public void execute() {
-        // TODO host
+        // TODO host game
         System.out.println("Host");
     }
 }

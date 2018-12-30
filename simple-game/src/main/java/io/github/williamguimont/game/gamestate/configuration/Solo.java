@@ -9,8 +9,7 @@ import io.github.williamguimont.game.player.RealPlayer;
 
 public class Solo extends BaseGameState {
 
-    public Solo(Game game)
-    {
+    public Solo(Game game) {
         super(game);
     }
 

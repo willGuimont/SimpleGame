@@ -11,7 +11,7 @@ public class Join extends BaseGameState {
 
     @Override
     public void execute() {
-        // TODO join
+        // TODO join game
         System.out.println("Join");
     }
 }
