@@ -17,12 +17,13 @@ public class Solo extends BaseGameState {
     public void execute() {
         Game game = getGame();
         System.out.println("Please select your character");
-        Character c = CharacterChoser.choseCharacter();
 
-        Player p1 = new RealPlayer(c);
+        Character c1 = CharacterChoser.choseCharacter();
+        Player p1 = new RealPlayer(c1);
         game.setPlayer1(p1);
 
-        Player p2 = new AI(CharacterChoser.randomCharacter());
+        Character c2 = CharacterChoser.randomCharacter();
+        Player p2 = new AI(c2);
         game.setPlayer2(p2);
 
         setNextState(new WorldChoser(game));

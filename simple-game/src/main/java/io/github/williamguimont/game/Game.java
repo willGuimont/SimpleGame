@@ -53,9 +53,9 @@ public class Game {
     public Player getWinningPlayer() {
         if (isOnePlayerDead()) {
             if (player1.getCharacter().isDead()) {
-                return player1;
-            } else {
                 return player2;
+            } else {
+                return player1;
             }
         } else {
             return null;
@@ -72,8 +72,8 @@ public class Game {
 
     public void setWorld(World world) {
         this.world = world;
-        player1.setWorld(world, 0, FacingDirection.Left);
-        player2.setWorld(world, world.getSize() - 1, FacingDirection.Right);
+        world.addCharacter(player1.getCharacter(), 0, FacingDirection.Right);
+        world.addCharacter(player2.getCharacter(), world.getSize() - 1, FacingDirection.Left);
     }
 
     public World getWorld() {

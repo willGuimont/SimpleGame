@@ -66,6 +66,12 @@ public class Character {
         }
     }
 
+    public boolean canAttack() {
+        int attackPosition = position + facingDirection.getValue();
+        Character other = world.getAtPosition(attackPosition);
+        return other != null;
+    }
+
     public String getName() {
         return name;
     }
@@ -108,5 +114,9 @@ public class Character {
 
     public FacingDirection getFacingDirection() {
         return facingDirection;
+    }
+
+    public void setFacingDirection(FacingDirection dir) {
+        facingDirection = dir;
     }
 }

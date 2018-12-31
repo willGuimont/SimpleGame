@@ -20,10 +20,6 @@ public class PlayerTurn extends BaseGameState {
         player.takeTurn();
         game.changeTurn();
 
-        if (game.isOnePlayerDead()) {
-            setNextState(new EndGame(game, game.getWinningPlayer()));
-        } else {
-            setNextState(new ShowGame(game));
-        }
+        setNextState(new ShowGame(game));
     }
 }

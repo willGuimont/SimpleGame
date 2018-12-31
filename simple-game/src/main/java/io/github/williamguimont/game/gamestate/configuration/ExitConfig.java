@@ -1,6 +1,7 @@
 package io.github.williamguimont.game.gamestate.configuration;
 
 import io.github.williamguimont.game.Game;
+import io.github.williamguimont.game.characters.Character.FacingDirection;
 import io.github.williamguimont.game.gamestate.BaseGameState;
 
 public class ExitConfig extends BaseGameState {
@@ -11,7 +12,8 @@ public class ExitConfig extends BaseGameState {
 
     @Override
     public void execute() {
-        getGame().finishSetup();
+        Game game = getGame();
+        game.finishSetup();
         setNextState(null); // exit
     }
 }
