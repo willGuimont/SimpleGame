@@ -16,7 +16,7 @@ import io.github.williamguimont.utils.Serializator.SerializationException;
 
 public class Host extends BaseGameState {
 
-    public static final int DEFAULT_WORLD_SIZE = 5;
+    public static final int DEFAULT_WORLD_SIZE = 7;
 
     public Host(Game game) {
         super(game);
@@ -53,7 +53,7 @@ public class Host extends BaseGameState {
                 game.setPlayer2(p2);
 
                 // World size
-                Integer worldSize = DEFAULT_WORLD_SIZE; // TODO?
+                Integer worldSize = DEFAULT_WORLD_SIZE; // TODO better world size
                 server.sendData(worldSize.toString());
                 game.setWorld(new World(worldSize));
 

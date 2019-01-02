@@ -1,7 +1,6 @@
 package io.github.williamguimont.game.gamestate.configuration;
 
 import io.github.williamguimont.game.Game;
-import io.github.williamguimont.game.characters.Character.FacingDirection;
 import io.github.williamguimont.game.gamestate.BaseGameState;
 
 public class ExitConfig extends BaseGameState {

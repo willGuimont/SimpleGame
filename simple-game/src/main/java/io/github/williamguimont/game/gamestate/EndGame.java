@@ -14,7 +14,6 @@ public class EndGame extends BaseGameState {
 
     @Override
     public void execute() {
-        Game game = getGame();
         System.out.println("The winner is " + winner.getCharacter().getName());
         setNextState(null);
     }

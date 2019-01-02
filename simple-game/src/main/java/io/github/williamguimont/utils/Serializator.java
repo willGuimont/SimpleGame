@@ -29,7 +29,6 @@ public class Serializator {
         } catch (IOException e) {
             throw new SerializationException(e.getMessage());
         }
-
     }
 
     public static Object loadFromString(String object) throws SerializationException {
