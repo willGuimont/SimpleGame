@@ -16,11 +16,17 @@ public class WorldChoser extends BaseGameState {
     public void execute() {
         // TODO grassland, street, mountain, etc
         System.out.println("Enter the size of the world");
-        System.out.println("(15 is recommended)");
+        System.out.println("(Between 5 and 20)");
         Scanner scanner = new Scanner(System.in);
 
         if (scanner.hasNextInt()) {
             int size = scanner.nextInt();
+
+            if (size < 5 || size > 20) {
+                setNextState(new WorldChoser(getGame()));
+                return;
+            }
+
             getGame().setWorld(new World(size));
             setNextState(new ExitConfig(getGame()));
         } else {

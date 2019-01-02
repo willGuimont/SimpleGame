@@ -13,11 +13,12 @@ public class PlayerTurn extends BaseGameState {
     @Override
     public void execute() {
         Game game = getGame();
+
         Player player = game.getCurrentPlayer();
         Character c = player.getCharacter();
         System.out.println("It's the turn of " + c.getName());
 
-        player.takeTurn();
+        player.takeTurn(game);
         game.changeTurn();
 
         setNextState(new ShowGame(game));

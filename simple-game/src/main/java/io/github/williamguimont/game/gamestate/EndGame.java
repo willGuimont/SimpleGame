@@ -7,14 +7,16 @@ public class EndGame extends BaseGameState {
 
     Player winner;
     
-    public EndGame(Game game, Player winner) {
+    public EndGame(Game game) {
         super(game);
-        this.winner = winner;
+        this.winner = game.getWinningPlayer();
     }
 
     @Override
     public void execute() {
+        Game game = getGame();
         System.out.println("The winner is " + winner.getCharacter().getName());
+        setNextState(null);
     }
 
 }

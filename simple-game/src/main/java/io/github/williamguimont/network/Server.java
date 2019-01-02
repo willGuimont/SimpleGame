@@ -1,25 +1,25 @@
 package io.github.williamguimont.network;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-class Server implements NetworkStream {
+public class Server implements NetworkStream {
     private ServerSocket serverSocket;
     private Socket socket;
-    DataOutputStream outToClient;
-    private BufferedReader inFromClient;
+    private OutputStreamWriter out;
+    private BufferedReader in;
 
     public Server(int port) throws NetworkException {
 
         try {
             serverSocket = new ServerSocket(port);
             socket = serverSocket.accept();
-            outToClient = new DataOutputStream(socket.getOutputStream());
-            inFromClient = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out = new OutputStreamWriter(socket.getOutputStream());
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         } catch (IOException e) {
             throw new NetworkException("Server can't send to client");
         }
@@ -27,7 +27,8 @@ class Server implements NetworkStream {
 
     public void sendData(String data) throws NetworkException {
         try {
-            outToClient.writeBytes(data);
+            out.write(data + '\n');
+            out.flush();
         } catch (IOException e) {
             throw new NetworkException("Server can't send to client");
         }
@@ -35,7 +36,7 @@ class Server implements NetworkStream {
 
     public String getData() throws NetworkException {
         try {
-            return inFromClient.readLine();
+            return in.readLine();
         } catch (IOException e) {
             throw new NetworkException("Server can't read from client");
         }
@@ -44,6 +45,7 @@ class Server implements NetworkStream {
     public void close() {
         try {
             socket.close();
+            serverSocket.close();
         } catch (IOException e) {
         }
     }

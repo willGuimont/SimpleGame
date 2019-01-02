@@ -1,8 +1,12 @@
 package io.github.williamguimont.game.characters;
 
+import java.io.Serializable;
+
 import io.github.williamguimont.game.World;
 
-public class Character {
+public class Character implements Serializable {
+
+    private static final long serialVersionUID = 2888137966484110963L;
 
     public enum FacingDirection {
         Left(-1), Right(1);
@@ -24,7 +28,7 @@ public class Character {
     private int strenght;
     private int position;
     private FacingDirection facingDirection;
-    private World world;
+    private transient World world;
 
     public Character(String name, int health, int maxHealth, int strenght) {
         this.name = name;

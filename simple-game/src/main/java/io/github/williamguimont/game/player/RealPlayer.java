@@ -2,6 +2,7 @@ package io.github.williamguimont.game.player;
 
 import java.util.Scanner;
 
+import io.github.williamguimont.game.Game;
 import io.github.williamguimont.game.characters.Character;
 
 public class RealPlayer extends Player {
@@ -11,8 +12,7 @@ public class RealPlayer extends Player {
     }
 
     @Override
-    public void takeTurn() {
-        // TODO player with inputs
+    public void takeTurn(Game game) {
         Scanner scanner = new Scanner(System.in);
         int choice = -1;
         while (choice < 1 || choice > 3) {
@@ -25,19 +25,22 @@ public class RealPlayer extends Player {
             }
         }
 
-        Character c = getCharacter();
+        Turn turn = null;
         switch (choice) {
         case 1:
-            c.goForward();
+            turn = Turn.GoForward;
             break;
         case 2:
-            c.goBackward();
+            turn = Turn.GoBackward;
             break;
         case 3:
-            c.attack();
+            turn = Turn.Attack;
             break;
         default:
+            assert false; // cannot go there
             break;
         }
+
+        doTurn(turn);
     }
 }

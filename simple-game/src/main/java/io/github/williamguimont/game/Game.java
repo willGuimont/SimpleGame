@@ -9,18 +9,19 @@ import io.github.williamguimont.game.player.Player;
 import io.github.williamguimont.utils.StateMachine;
 
 public class Game {
-    // TODO add color everywhere
     private StateMachine stateMachine;
     private World world;
     private Player player1;
     private Player player2;
     private boolean isSetup;
     private boolean isPlayer1Turn;
+    private int nbTurns;
 
     public Game() {
         world = new World(10);
         isSetup = false;
         isPlayer1Turn = true;
+        nbTurns = 1;
     }
 
     public void run() {
@@ -46,17 +47,15 @@ public class Game {
         }
     }
 
-    public boolean isOnePlayerDead() {
-        return player1.getCharacter().isDead() || player2.getCharacter().isDead();
+    public boolean isGameFinished() {
+        return player1.hasLost() || player2.hasLost();
     }
 
     public Player getWinningPlayer() {
-        if (isOnePlayerDead()) {
-            if (player1.getCharacter().isDead()) {
-                return player2;
-            } else {
-                return player1;
-            }
+        if (player1.hasLost()) {
+            return player2;
+        } else if (player2.hasLost()) {
+            return player1;
         } else {
             return null;
         }
@@ -64,10 +63,23 @@ public class Game {
 
     public void changeTurn() {
         isPlayer1Turn = !isPlayer1Turn;
+        nbTurns += 1;
+    }
+
+    public int getNbTurns() {
+        return nbTurns;
+    }
+
+    public boolean isFirstTurn() {
+        return nbTurns == 1;
     }
 
     public Player getCurrentPlayer() {
         return isPlayer1Turn ? player1 : player2;
+    }
+
+    public Player getOtherPlayer() {
+        return isPlayer1Turn ? player2 : player1;
     }
 
     public void setWorld(World world) {

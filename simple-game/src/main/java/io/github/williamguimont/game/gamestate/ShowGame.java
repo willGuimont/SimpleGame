@@ -23,13 +23,16 @@ public class ShowGame extends BaseGameState {
         Character c1 = p1.getCharacter();
         Character c2 = p2.getCharacter();
 
+        int c1pos = c1.getPosition();
+        int c2pos = c2.getPosition();
+
         showCharacter(c1);
         showCharacter(c2);
 
         for (int i = 0; i < world.getSize(); ++i) {
-            if (i == c1.getPosition()) {
+            if (i == c1pos) {
                 System.out.print(ansi().fg(GREEN).a("@").reset());
-            } else if (i == c2.getPosition()) {
+            } else if (i == c2pos) {
                 System.out.print(ansi().fg(RED).a("@").reset());
             } else {
                 if (world.getAtPosition(i) == null) {
@@ -45,11 +48,7 @@ public class ShowGame extends BaseGameState {
         }
         System.out.println();
 
-        if (game.isOnePlayerDead()) {
-            setNextState(new EndGame(game, game.getWinningPlayer()));
-        } else {
-            setNextState(new PlayerTurn(game));
-        }
+        setNextState(new PlayerTurn(game));
     }
 
     public void showCharacter(Character c) {

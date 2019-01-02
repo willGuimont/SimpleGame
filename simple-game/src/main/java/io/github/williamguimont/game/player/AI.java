@@ -1,5 +1,6 @@
 package io.github.williamguimont.game.player;
 
+import io.github.williamguimont.game.Game;
 import io.github.williamguimont.game.characters.Character;
 
 public class AI extends Player {
@@ -9,12 +10,14 @@ public class AI extends Player {
     }
 
     @Override
-    public void takeTurn() {
+    public void takeTurn(Game game) {
         Character c = getCharacter();
+        Turn turn = null;
         if (c.canAttack()) {
-            c.attack();
+            turn = Turn.Attack;
         } else {
-            c.goForward();
+            turn = Turn.GoForward;
         }
+        doTurn(turn);
     }
 }
