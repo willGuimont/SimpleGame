@@ -2,7 +2,9 @@ package io.github.williamguimont.game.gamestate;
 
 import io.github.williamguimont.game.Game;
 import io.github.williamguimont.game.characters.Character;
+import io.github.williamguimont.game.player.NetworkPlayer;
 import io.github.williamguimont.game.player.Player;
+import io.github.williamguimont.utils.State;
 
 public class PlayerTurn extends BaseGameState {
 
@@ -21,6 +23,18 @@ public class PlayerTurn extends BaseGameState {
         player.takeTurn(game);
         game.changeTurn();
 
-        setNextState(new ShowGame(game));
+        State nextState = null;
+        if (game.isGameFinished()) {
+            Player p = game.getCurrentPlayer();
+            // TODO halp
+            if (p instanceof NetworkPlayer) {
+                p.takeTurn(game);
+            }
+            nextState = new EndGame(game);
+        } else {
+            nextState = new ShowGame(game);
+        }
+
+        setNextState(nextState);
     }
 }
