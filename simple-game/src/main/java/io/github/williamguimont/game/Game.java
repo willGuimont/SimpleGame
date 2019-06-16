@@ -18,7 +18,7 @@ public class Game {
     private int nbTurns;
 
     public Game() {
-        world = new World(10);
+        world = new World(10, World.Type.Grassland);
         isSetup = false;
         isPlayer1Turn = true;
         nbTurns = 1;

@@ -26,6 +26,6 @@ public class Solo extends BaseGameState {
         Player p2 = new AI(c2);
         game.setPlayer2(p2);
 
-        setNextState(new WorldChoser(game));
+        setNextState(new WorldChooser(game, new ExitConfig(game)));
     }
 }

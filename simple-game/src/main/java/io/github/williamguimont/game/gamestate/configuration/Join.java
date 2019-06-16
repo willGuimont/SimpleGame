@@ -1,7 +1,5 @@
 package io.github.williamguimont.game.gamestate.configuration;
 
-import java.util.Scanner;
-
 import io.github.williamguimont.game.Game;
 import io.github.williamguimont.game.World;
 import io.github.williamguimont.game.characters.Character;
@@ -13,6 +11,8 @@ import io.github.williamguimont.network.Client;
 import io.github.williamguimont.network.NetworkStream.NetworkException;
 import io.github.williamguimont.utils.Serializator;
 import io.github.williamguimont.utils.Serializator.SerializationException;
+
+import java.util.Scanner;
 
 public class Join extends BaseGameState {
 
@@ -54,13 +54,13 @@ public class Join extends BaseGameState {
                 // World
                 String worldSizeString = client.getData();
                 int worldSize = Integer.decode(worldSizeString);
-                World world = new World(worldSize);
+                World.Type worldType = World.Type.valueOf(client.getData());
+                World world = new World(worldSize, worldType);
                 game.setWorld(world);
 
                 setNextState(new ExitConfig(game));
-            } catch (NetworkException | SerializationException e) {
+            } catch (NetworkException | SerializationException | NetworkPlayer.NetworkError e) {
                 setNextState(new MainMenu(game));
-                return;
             }
 
         } else {

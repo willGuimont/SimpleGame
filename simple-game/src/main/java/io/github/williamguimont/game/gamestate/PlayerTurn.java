@@ -26,9 +26,12 @@ public class PlayerTurn extends BaseGameState {
         State nextState = null;
         if (game.isGameFinished()) {
             Player p = game.getCurrentPlayer();
-            // TODO do a better job than that (i.e. no instanceof)
             if (p instanceof NetworkPlayer) {
-                p.takeTurn(game);
+                try {
+                    p.takeTurn(game);
+                } catch (NetworkPlayer.NetworkError ignored) {
+                    // End
+                }
             }
             nextState = new EndGame(game);
         } else {

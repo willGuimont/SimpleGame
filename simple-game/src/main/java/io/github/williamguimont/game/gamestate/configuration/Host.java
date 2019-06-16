@@ -1,69 +1,34 @@
 package io.github.williamguimont.game.gamestate.configuration;
 
-import java.util.Scanner;
-
 import io.github.williamguimont.game.Game;
 import io.github.williamguimont.game.World;
-import io.github.williamguimont.game.characters.Character;
 import io.github.williamguimont.game.gamestate.BaseGameState;
 import io.github.williamguimont.game.player.NetworkPlayer;
-import io.github.williamguimont.game.player.Player;
-import io.github.williamguimont.game.player.RealPlayer;
-import io.github.williamguimont.network.Server;
 import io.github.williamguimont.network.NetworkStream.NetworkException;
-import io.github.williamguimont.utils.Serializator;
-import io.github.williamguimont.utils.Serializator.SerializationException;
+import io.github.williamguimont.network.Server;
 
 public class Host extends BaseGameState {
 
-    public static final int DEFAULT_WORLD_SIZE = 7;
+    private final Server server;
 
-    public Host(Game game) {
+    public Host(Game game, Server server) {
         super(game);
+        this.server = server;
     }
 
     @Override
     public void execute() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("You are about to host a game");
-        System.out.println("Wich port should be used?");
-        if (scanner.hasNextInt()) {
-            int port = scanner.nextInt();
+        try {
             Game game = getGame();
+            // World size
+            World world = game.getWorld();
+            Integer worldSize = world.getSize();
+            server.sendData(worldSize.toString());
+            server.sendData(world.getType().toString());
 
-            Character c1 = CharacterChoser.choseCharacter();
-            Player p1 = new RealPlayer(c1);
-            game.setPlayer1(p1);
-
-            System.out.println("Waiting for the other player to join...");
-
-            try {
-                Server server = new Server(port);
-                System.out.println("Other player has joined");
-                server.getData(); // wait for the other to be ready
-
-                // C1
-                String c1Serialized = Serializator.serializeToString(c1);
-                server.sendData(c1Serialized);
-
-                // C2
-                String serializedCharacter = server.getData();
-                Character c2 = (Character) Serializator.loadFromString(serializedCharacter);
-                Player p2 = new NetworkPlayer(c2, server);
-                game.setPlayer2(p2);
-
-                // World size
-                Integer worldSize = DEFAULT_WORLD_SIZE; // TODO better world size
-                server.sendData(worldSize.toString());
-                game.setWorld(new World(worldSize));
-
-                setNextState(new ExitConfig(game));
-            } catch (NetworkException | SerializationException e) {
-                setNextState(new MainMenu(getGame()));
-                return;
-            }
-        } else {
-            setNextState(new Host(getGame()));
+            setNextState(new ExitConfig(game));
+        } catch (NetworkException | NetworkPlayer.NetworkError e) {
+            setNextState(new MainMenu(getGame()));
         }
     }
 }

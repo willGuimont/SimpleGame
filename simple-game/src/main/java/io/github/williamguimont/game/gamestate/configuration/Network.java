@@ -1,10 +1,10 @@
 package io.github.williamguimont.game.gamestate.configuration;
 
-import java.util.Scanner;
-
 import io.github.williamguimont.game.Game;
 import io.github.williamguimont.game.gamestate.BaseGameState;
 import io.github.williamguimont.utils.State;
+
+import java.util.Scanner;
 
 public class Network extends BaseGameState {
 
@@ -25,7 +25,7 @@ public class Network extends BaseGameState {
             int choice = scanner.nextInt();
             switch (choice) {
             case 1:
-                next = new Host(getGame());
+                next = new HostConfig(getGame());
                 break;
             case 2:
                 next = new Join(getGame());

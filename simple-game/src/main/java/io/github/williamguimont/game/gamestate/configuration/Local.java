@@ -24,6 +24,6 @@ public class Local extends BaseGameState {
         Player p2 = new RealPlayer(c2);
         getGame().setPlayer2(p2);
 
-        setNextState(new WorldChoser(getGame()));
+        setNextState(new WorldChooser(getGame(), new ExitConfig(getGame())));
     }
 }

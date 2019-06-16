@@ -1,12 +1,13 @@
 package io.github.williamguimont.game.gamestate;
 
-import static org.fusesource.jansi.Ansi.*;
-import static org.fusesource.jansi.Ansi.Color.*;
-
 import io.github.williamguimont.game.Game;
 import io.github.williamguimont.game.World;
 import io.github.williamguimont.game.characters.Character;
 import io.github.williamguimont.game.player.Player;
+import org.fusesource.jansi.Ansi;
+
+import static org.fusesource.jansi.Ansi.Color.*;
+import static org.fusesource.jansi.Ansi.ansi;
 
 public class ShowGame extends BaseGameState {
 
@@ -43,15 +44,29 @@ public class ShowGame extends BaseGameState {
             }
         }
         System.out.println();
+        Ansi.Color color = getColorWorld(world);
         for (int i = 0; i < world.getSize(); ++i) {
-            System.out.print("-");
+            System.out.print(ansi().fg(color).a("-").reset());
         }
         System.out.println();
 
         setNextState(new PlayerTurn(game));
     }
 
-    public void showCharacter(Character c) {
+    private Ansi.Color getColorWorld(World world) {
+        switch (world.getType()) {
+            case Street:
+                return YELLOW;
+            case Grassland:
+                return GREEN;
+            case Mountain:
+                return WHITE;
+            default:
+                return null;
+        }
+    }
+
+    private void showCharacter(Character c) {
         System.out.println("-----");
         System.out.println(c.getName() + ": ");
         System.out.println("Health: " + c.getHealth() + " / " + c.getMaxHealth());

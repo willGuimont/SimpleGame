@@ -9,6 +9,9 @@ import io.github.williamguimont.utils.Serializator.SerializationException;
 
 public class NetworkPlayer extends Player {
 
+    public class NetworkError extends RuntimeException {
+    }
+
     NetworkStream stream;
     RealPlayer player;
 
@@ -40,8 +43,8 @@ public class NetworkPlayer extends Player {
     private void sendTurn(Turn t) {
         try {
             stream.sendData(Serializator.serializeToString(t));
-        } catch (NetworkException | SerializationException e) {
-            // TODO Error handling (exit game?)
+        } catch (NetworkException | SerializationException | NullPointerException e) {
+            throw new NetworkError();
         }
     }
 
@@ -51,9 +54,8 @@ public class NetworkPlayer extends Player {
             data = stream.getData();
             Turn t = (Turn)Serializator.loadFromString(data);
             return t;
-        } catch (NetworkException | SerializationException e) {
-            // TODO Error handling (exit game?)
-            return null;
+        } catch (NetworkException | SerializationException | NullPointerException e) {
+            throw new NetworkError();
         }
 
     }

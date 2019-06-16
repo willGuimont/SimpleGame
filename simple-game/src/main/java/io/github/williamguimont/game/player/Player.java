@@ -1,15 +1,14 @@
 package io.github.williamguimont.game.player;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import io.github.williamguimont.game.Game;
 import io.github.williamguimont.game.characters.Character;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Player {
 
     public enum Turn {
-        // TODO add more there
         Nothing, GoForward, GoBackward, Attack;
     };
 

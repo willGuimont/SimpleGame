@@ -5,15 +5,19 @@ import io.github.williamguimont.game.characters.Character.FacingDirection;
 
 public class World {
 
+    public enum Type {Grassland, Street, Mountain}
+
     private final Character[] field;
     private final int size;
+    private Type type;
 
-    public World(int size) {
+    public World(int size, Type type) {
         field = new Character[size];
         this.size = size;
+        this.type = type;
     }
 
-    public void addCharacter(Character c, int position, FacingDirection facingDirection) {
+    void addCharacter(Character c, int position, FacingDirection facingDirection) {
         c.setInWorld(this, position, facingDirection);
         field[position] = c;
     }
@@ -22,15 +26,14 @@ public class World {
         if (isCaseEmpty(to)) {
             field[to] = field[from];
             field[from] = null;
-        } else {
-            // TODO error ?
         }
+        // Else lose turn
     }
 
     public boolean isCaseEmpty(int position) {
         if (position < 0 || position >= size)
             return false;
-        return field[position] == null ? true : false;
+        return field[position] == null;
     }
 
     public Character getAtPosition(int position) {
@@ -41,5 +44,9 @@ public class World {
 
     public int getSize() {
         return size;
+    }
+
+    public Type getType() {
+        return type;
     }
 }
